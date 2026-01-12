@@ -1,7 +1,10 @@
+import Pagination from "@/components/pagination";
 import { client, WorkArticle } from "@/libs/microcms";
-import { Code, Layers } from "lucide-react";
+import { MicroCMSQueries } from "microcms-js-sdk";
+import { Code } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { worksLimit } from "@/lib/constants";
 
 // microCMSから実績記事を取得
 const formatDate = (dateStr?: string) => {
@@ -18,28 +21,32 @@ const stripHtml = (html?: string) => {
   return html.replace(/<[^>]*>?/gm, "");
 };
 
-async function getBlogPosts(): Promise<WorkArticle[]> {
+async function getBlogPosts(queries?: MicroCMSQueries) {
   const data = await client.getList<WorkArticle>({
     endpoint: "work",
     queries: {
-      fields: "id,title,eyecatch,publishedAt,category,tech_stack,overview",
-      limit: 5,
+      fields: "id,title,eyecatch,publishedAt,content",
+      ...queries,
     },
   });
-  return data.contents;
+  return data;
 }
 
-export default async function Home() {
-  const posts = await getBlogPosts();
+export default async function Home(props: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const searchParams = await props.searchParams;
+  const page = Number(searchParams.page) || 1;
+  const limit = worksLimit;
+  const { contents: posts, totalCount } = await getBlogPosts({
+    limit,
+    offset: (page - 1) * limit,
+  });
 
   return (
-    <div className="flex flex-col justify-center gap-6 pb-1">
-      <Link href="/works">
-        <h1 className="flex items-center gap-3">
-          <Code className="text-brand-accent h-8 w-8" />
-          Latest Works
-        </h1>
-      </Link>
+    <div className="flex flex-col gap-4">
+      <h1 className="flex items-center gap-3">All Works</h1>
+      <Pagination totalCount={totalCount} currentPage={page} />
       <div className="flex flex-col gap-4 px-1">
         {posts.map((post) => (
           <Link
@@ -55,17 +62,6 @@ export default async function Home() {
               <div className="flex w-full items-center justify-start gap-2 sm:w-fit">
                 <span className="whitespace-nowrap opacity-50">
                   {formatDate(post.publishedAt)}
-                </span>
-              </div>
-              <span className="hidden opacity-50 sm:block">-</span>
-              <div className="flex w-full items-center justify-start gap-3 sm:w-fit">
-                <span className="text-brand-secondary flex items-center gap-2">
-                  <Layers className="h-4 w-4" />
-                  {post.category?.map((category) => (
-                    <span key={category.id} className="text-sm">
-                      {category.name}
-                    </span>
-                  ))}
                 </span>
               </div>
             </div>
@@ -84,7 +80,7 @@ export default async function Home() {
                     </div>
                   </figure>
                 )}
-                <p>{post.overview}</p>
+                <p>{stripHtml(post.content)}</p>
               </div>
             </div>
           </Link>

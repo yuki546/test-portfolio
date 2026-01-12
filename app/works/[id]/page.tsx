@@ -1,15 +1,8 @@
 import { client } from "@/libs/microcms";
-
-// 実績記事の型定義
-type Props = {
-  id: string;
-  title: string;
-  content: string;
-  category: { name: string };
-};
+import { WorkArticle } from "@/libs/microcms";
 
 // microCMSから特定の記事を取得
-async function getWorkPost(id: string): Promise<Props> {
+async function getWorkPost(id: string): Promise<WorkArticle> {
   const data = await client.get({
     endpoint: `work/${id}`,
   });
@@ -26,11 +19,12 @@ export default async function WorkPostPage({
   const post = await getWorkPost(id);
 
   return (
-    <main>
+    <div>
       <h1>{post.title}</h1>
-      <div>カテゴリー：{post.category && post.category.name}</div>
+      {/* <pre>{JSON.stringify(post, null, 2)}</pre> */}
+      <div>カテゴリー：{post.category && post.category[0].name}</div>
       <div dangerouslySetInnerHTML={{ __html: post.content }} />
-    </main>
+    </div>
   );
 }
 

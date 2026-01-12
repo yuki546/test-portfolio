@@ -29,13 +29,20 @@ export type Category = {
 } & MicroCMSContentId &
   MicroCMSDate;
 
+// リンクの型定義
+export type Link = {
+  fieldID: string;
+  name: string;
+  url: string;
+};
+
 // 実績の型定義
 export type Work = {
   title: string;
   eyecatch: MicroCMSImage;
   category?: Category[];
   tech_stack?: string[];
-  links?: string[];
+  links?: Link[];
   overview: string;
   content: string;
 };

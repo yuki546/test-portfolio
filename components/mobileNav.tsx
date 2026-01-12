@@ -11,7 +11,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
   return (
     <div
       className={cn(
-        "bg-brand-base-200 border-brand-secondary/30 absolute -z-10 h-[65vh] w-full transform overflow-y-auto border-t px-6 py-4 opacity-0 transition-all duration-300 ease-in-out max-sm:bottom-0 max-sm:translate-y-16 max-sm:rounded-t-lg sm:top-0 sm:right-0 sm:h-screen sm:w-1/2 sm:translate-x-12 sm:border-l",
+        "bg-brand-base-200 border-brand-secondary/30 fixed -z-10 h-[65vh] w-full transform overflow-y-auto border-t px-6 py-4 opacity-0 transition-all duration-300 ease-in-out max-sm:bottom-0 max-sm:translate-y-16 max-sm:rounded-t-lg sm:top-0 sm:right-0 sm:h-screen sm:w-1/2 sm:translate-x-12 sm:border-l",
         isOpen && "z-30 opacity-100 max-sm:translate-y-0 sm:translate-x-0",
       )}
     >

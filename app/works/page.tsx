@@ -1,7 +1,7 @@
 import Pagination from "@/components/pagination";
 import { client, WorkArticle } from "@/libs/microcms";
 import { MicroCMSQueries } from "microcms-js-sdk";
-import { Code } from "lucide-react";
+import { Code, Layers } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { worksLimit } from "@/lib/constants";
@@ -25,7 +25,7 @@ async function getBlogPosts(queries?: MicroCMSQueries) {
   const data = await client.getList<WorkArticle>({
     endpoint: "work",
     queries: {
-      fields: "id,title,eyecatch,publishedAt,content",
+      fields: "id,title,eyecatch,publishedAt,category,tech_stack,overview",
       ...queries,
     },
   });
@@ -64,6 +64,17 @@ export default async function Home(props: {
                   {formatDate(post.publishedAt)}
                 </span>
               </div>
+              <span className="hidden opacity-50 sm:block">-</span>
+              <div className="flex w-full items-center justify-start gap-3 sm:w-fit">
+                <span className="text-brand-secondary flex items-center gap-2">
+                  <Layers className="h-4 w-4" />
+                  {post.category?.map((category) => (
+                    <span key={category.id} className="text-sm">
+                      {category.name}
+                    </span>
+                  ))}
+                </span>
+              </div>
             </div>
             <div className="postViewSummary flex">
               <div className="text-brand-primary/70 line-clamp-2 overflow-ellipsis">
@@ -80,7 +91,7 @@ export default async function Home(props: {
                     </div>
                   </figure>
                 )}
-                <p>{stripHtml(post.content)}</p>
+                <p>{stripHtml(post.overview)}</p>
               </div>
             </div>
           </Link>

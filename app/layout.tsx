@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
-import BlurBackDropComponent from "@/components/BlurBackDrop";
+import { MobileNavProvider } from "@/components/providers/MobileNavContext";
 
 export default function RootLayout({
   children,
@@ -19,19 +19,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-brand-base-100 text-brand-primary overflow-hidden">
-        <div className="grid h-screen max-h-screen grid-rows-[auto_1fr] overflow-hidden">
-          <Header />
-          <main className="grid h-full grid-rows-[1fr_auto] overflow-x-hidden overflow-y-auto scroll-smooth">
-            <div className="mx-auto grid h-full w-full gap-4 sm:max-w-5xl md:grid-cols-[1fr_auto]">
-              <div className="bg-brand-base-200 h-full w-full rounded-md shadow-md">
-                <div className="p-7 px-4 sm:px-7">{children}</div>
+        <MobileNavProvider>
+          <div className="grid h-screen max-h-screen grid-rows-[auto_1fr] overflow-hidden">
+            <Header />
+            <main className="grid h-full grid-rows-[1fr_auto] overflow-x-hidden overflow-y-auto scroll-smooth">
+              <div className="mx-auto grid h-full w-full gap-4 sm:max-w-5xl md:grid-cols-[1fr_auto]">
+                <div className="bg-brand-base-200 h-full w-full rounded-md shadow-md">
+                  <div className="p-7 px-4 sm:px-7">{children}</div>
+                </div>
+                <Sidebar />
               </div>
-              <Sidebar />
-            </div>
-            <Footer />
-          </main>
-        </div>
-        {/* <BlurBackDropComponent /> */}
+              <Footer />
+            </main>
+          </div>
+        </MobileNavProvider>
       </body>
     </html>
   );

@@ -3,20 +3,10 @@
 import { NAV_ITEMS } from "@/lib/utils";
 import { DiamondPlus, Menu } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
-import BlurBackDropComponent from "./BlurBackDrop";
-import MobileNav from "./mobileNav";
+import { useMobileNav } from "./providers/MobileNavContext";
 
 export default function Header() {
-  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-
-  const showMobileNav = () => {
-    setIsMobileNavOpen(true);
-  };
-
-  const closeMobileNav = () => {
-    setIsMobileNavOpen(false);
-  };
+  const { openMobileNav } = useMobileNav();
 
   return (
     <header
@@ -44,21 +34,12 @@ export default function Header() {
           <button
             id="mobileMenuBtn"
             className="text-brand-secondary rounded-md p-1"
-            onClick={showMobileNav}
+            onClick={openMobileNav}
             aria-label="Navigation"
           >
             <Menu className="h-7 w-7" />
           </button>
         </div>
-        <MobileNav isOpen={isMobileNavOpen} onClose={closeMobileNav} />
-        <BlurBackDropComponent
-          className={
-            isMobileNavOpen
-              ? "pointer-events-auto opacity-100"
-              : "pointer-events-none"
-          }
-          onClick={closeMobileNav}
-        />
       </nav>
     </header>
   );

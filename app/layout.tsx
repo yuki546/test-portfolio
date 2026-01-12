@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
+import BlurBackDropComponent from "@/components/BlurBackDrop";
 
 export default function RootLayout({
   children,
@@ -30,6 +31,7 @@ export default function RootLayout({
             <Footer />
           </main>
         </div>
+        {/* <BlurBackDropComponent /> */}
       </body>
     </html>
   );

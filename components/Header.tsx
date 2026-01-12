@@ -1,38 +1,65 @@
-import { DiamondPlus } from "lucide-react";
+"use client";
+
+import { NAV_ITEMS } from "@/lib/utils";
+import { DiamondPlus, Menu } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+import BlurBackDropComponent from "./BlurBackDrop";
+import MobileNav from "./mobileNav";
 
 export default function Header() {
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+
+  const showMobileNav = () => {
+    setIsMobileNavOpen(true);
+  };
+
+  const closeMobileNav = () => {
+    setIsMobileNavOpen(false);
+  };
+
   return (
-    <header className="bg-brand-base-100 sticky top-0 z-1 py-4 max-md:drop-shadow-md sm:static sm:py-5">
-      <div className="container mx-auto flex items-center gap-6 px-5 sm:max-w-5xl sm:px-6 lg:px-0">
+    <header
+      id="navContainer"
+      className="bg-brand-base-100 sticky top-0 z-1 py-4 max-md:drop-shadow-md sm:static sm:py-5"
+    >
+      <nav className="mx-auto flex items-center justify-between gap-6 px-5 sm:max-w-5xl sm:px-6 md:justify-start lg:px-0">
         <Link href="/" className="flex items-center gap-4">
           <DiamondPlus className="h-8 w-8" />
           <h1>My Portfolio</h1>
         </Link>
         {/* Add navigation links here if needed in the future */}
-        <nav>
-          <div className="hidden gap-6 px-8 md:flex">
+        <div className="hidden gap-6 px-8 md:flex">
+          {NAV_ITEMS.map((item) => (
             <Link
-              href="/"
+              key={item.href}
+              href={item.href}
               className="hover:bg-brand-base-100 text-brand-secondary flex items-center rounded-md p-2 font-light transition-all duration-200 ease-in-out"
             >
-              Home
+              {item.label}
             </Link>
-            <Link
-              href="/about"
-              className="hover:bg-brand-base-100 text-brand-secondary flex items-center rounded-md p-2 font-light transition-all duration-200 ease-in-out"
-            >
-              About
-            </Link>
-            <Link
-              href="/works"
-              className="hover:bg-brand-base-100 text-brand-secondary flex items-center rounded-md p-2 font-light transition-all duration-200 ease-in-out"
-            >
-              Works
-            </Link>
-          </div>
-        </nav>
-      </div>
+          ))}
+        </div>
+        <div className="block md:hidden">
+          <button
+            id="mobileMenuBtn"
+            className="text-brand-secondary rounded-md p-1"
+            onClick={showMobileNav}
+            aria-label="Navigation"
+          >
+            <Menu className="h-7 w-7" />
+          </button>
+        </div>
+        <MobileNav isOpen={isMobileNavOpen} onClose={closeMobileNav} />
+        <BlurBackDropComponent
+          className={
+            isMobileNavOpen
+              ? "pointer-events-auto opacity-100"
+              : "pointer-events-none"
+          }
+          onClick={closeMobileNav}
+        />
+      </nav>
     </header>
   );
 }

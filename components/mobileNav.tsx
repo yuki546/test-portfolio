@@ -1,6 +1,9 @@
 import { X } from "lucide-react";
 import Link from "next/link";
 import { NAV_ITEMS, cn } from "@/lib/utils";
+import Image from "next/image";
+import { TooltipIcon } from "./TooltipIcon";
+import { SiGithub, SiX } from "react-icons/si";
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -33,6 +36,43 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
               {item.label}
             </Link>
           ))}
+        </div>
+        <div className="flex flex-col items-start gap-4 px-6">
+          {/* Profile Image Placeholder */}
+          <div className="">
+            <Image
+              src="/profile_pic.webp"
+              alt="Profile"
+              width={96}
+              height={96}
+              className="mx-auto h-24 rounded-full"
+            />
+          </div>
+
+          <div className="text-brand-secondary text-sm font-light tracking-wide">
+            <div className="text-brand-secondary flex items-center gap-2 pb-4">
+              <TooltipIcon
+                icon={<SiGithub className="h-5 w-5" />}
+                label="GitHub"
+                href="https://github.com/yuki546"
+              />
+              <TooltipIcon
+                icon={<SiX className="h-5 w-5" />}
+                label="X"
+                href="https://x.com/iraka_dev"
+              />
+            </div>
+
+            <div className="mb-2 font-medium">
+              <p>Yuki</p>
+              <p>Markup Engineer</p>
+              <p>Kochi, Japan</p>
+            </div>
+            <p className="mb-6 text-sm">
+              Markup Engineer looking to start working with Next.js living in
+              Kochi.
+            </p>
+          </div>
         </div>
       </div>
     </div>

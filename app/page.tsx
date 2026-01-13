@@ -48,7 +48,7 @@ export default async function Home() {
             href={`/works/${post.id}`}
             className="group from-brand-base-100 to-brand-base-200 hover:ring-brand-accent/50 relative flex flex-col gap-2 overflow-hidden rounded-md bg-linear-to-r p-5 shadow-md transition-all duration-200 ease-in-out hover:ring-1"
           >
-            <div className="absolute right-4 bottom-4 z-1 flex items-center gap-2 opacity-0 transition duration-300 ease-in-out group-hover:opacity-100">
+            <div className="absolute right-4 bottom-4 z-1 flex items-center justify-end gap-2 opacity-0 transition duration-300 ease-in-out group-hover:opacity-100">
               <Tag className="h-4 w-4" />
               {post.tech_stack?.map((tech) => (
                 <span

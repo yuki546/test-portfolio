@@ -1,3 +1,4 @@
+import { formatRichText } from "@/lib/markdown";
 import { client, getWorkDetail } from "@/libs/microcms";
 import { Layers, LinkIcon, Calendar } from "lucide-react";
 import Image from "next/image";
@@ -114,7 +115,9 @@ export default async function WorkPostPage({
 
       {/* Content */}
       <div className="prose prose-zinc dark:prose-invert max-w-none">
-        <div dangerouslySetInnerHTML={{ __html: post.content }} />
+        <div
+          dangerouslySetInnerHTML={{ __html: formatRichText(post.content) }}
+        />
       </div>
     </div>
   );

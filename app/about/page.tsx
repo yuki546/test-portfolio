@@ -8,12 +8,14 @@ export default async function About() {
       <div className="text-center">
         <p>Yuki | Markup to Frontend</p>
         <p>
-          Web制作の現場で3年半、マークアップエンジニアとして経験を積んできました。
+          Web制作の現場で3年半、マークアップエンジニアとして実務経験を積んできました。
         </p>
         <p>
-          既存のWeb制作の枠にとらわれず、React/Next.jsなどのモダンなエコシステムを用いたアプリケーション開発に挑戦したいと考えています。
+          単なるUI実装にとどまらず、アプリケーションの堅牢性やパフォーマンスを追求したいと考え、現在はReact/Next.jsを中心としたモダン開発を学習・実践しています。
         </p>
-        <p>現在、フロントエンドエンジニアへの転身を目指して活動中です。</p>
+        <p>
+          サーバーサイドの連携やアーキテクチャへの理解も深めながら、長期的にはフルスタックに活躍できるエンジニアを目指して活動中です。
+        </p>
       </div>
       <div className="flex w-full max-w-40 flex-col gap-4">
         <Link

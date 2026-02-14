@@ -14,11 +14,6 @@ const formatDate = (dateStr?: string) => {
   return `${year} ${month} ${day}`;
 };
 
-const stripHtml = (html?: string) => {
-  if (!html) return "";
-  return html.replace(/<[^>]*>?/gm, "");
-};
-
 async function getBlogPosts(): Promise<WorkArticle[]> {
   const data = await client.getList<WorkArticle>({
     endpoint: "work",

@@ -38,4 +38,7 @@ jobs:
 
       # 6. ビルドチェック（Next.jsのビルドを実行して型エラー等を確認）
       - name: Run Build
+        env:
+          MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
+          MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
         run: pnpm build

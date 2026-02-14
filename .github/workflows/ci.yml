@@ -1,0 +1,41 @@
+name: CI
+
+# いつ実行するか：mainブランチへのpush時と全部ランチからのPull Request作成時
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. リポジトリのコードを取得
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. pnpm のセットアップ（キャッシュも有効）
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      # 3. Node.js のセットアップ（キャッシュも有効化）
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      # 4. 依存関係のインストール
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 5. Lintチェック（package.jsonの "lint": "eslint" を実行）
+      - name: Run Lint
+        run: pnpm lint
+
+      # 6. ビルドチェック（Next.jsのビルドを実行して型エラー等を確認）
+      - name: Run Build
+        run: pnpm build

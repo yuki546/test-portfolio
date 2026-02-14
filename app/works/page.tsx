@@ -1,7 +1,7 @@
 import Pagination from "@/components/pagination";
 import { client, WorkArticle } from "@/libs/microcms";
 import { MicroCMSQueries } from "microcms-js-sdk";
-import { Calendar, Code, Layers, Tag } from "lucide-react";
+import { Calendar, Layers, Tag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { worksLimit } from "@/lib/constants";

@@ -1,3 +1,5 @@
+![CI](https://github.com/yuki546/test-portfolio/actions/workflows/ci.yml/badge.svg)
+
 # Portfolio Website
 
 A personal portfolio website built with Next.js and microCMS.
